@@ -7,8 +7,7 @@ const purchaseSchema = new Schema(
     products: [Schema.Types.ObjectId],
     vendor: Schema.Types.ObjectId,
     total: Number,
-    PurchaseOrder,
-    Number
+    PurchaseOrder: Number
   },
   { timestamps: true }
 );
