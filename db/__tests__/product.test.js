@@ -1,4 +1,4 @@
-const product = require("../product/product");
+const product = require("../product");
 
 describe("Product Tests:", () => {
   const testProductDetails = {
