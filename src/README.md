@@ -27,10 +27,8 @@ _Retrieves all products._
 
 * **Error Response:**
 
-  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
-
-  - **Code:** 404 ERROR <br />
-    **Content:** `{ error : "Products Not Found" }`
+- **Code:** 404 ERROR <br />
+  **Content:** `{ error : "Products Not Found" }`
 
 - **Sample Call:**
 
@@ -63,12 +61,10 @@ Retrieve product by id;
 
 - **Error Response:**
 
-  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
+* **Code:** 404 NOT FOUND <br />
+  **Content:** `{ error : "Product Not Found" }`
 
-  - **Code:** 404 NOT FOUND <br />
-    **Content:** `{ error : "Product Not Found" }`
-
-- **Sample Call:**
+* **Sample Call:**
 
   axios.get('/api/products/32')
 
