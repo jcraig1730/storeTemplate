@@ -141,7 +141,7 @@ Edit a product;
 Create a new customer sale
 
 - **URL**
-  /api/sale/
+  /api/sales/
 
 - **Method:**
   `POST`
@@ -166,7 +166,7 @@ Create a new customer sale
 
 * **Sample Call:**
 
-  `axios.post('/api/sale', {customerId: 'af3c3dd333234a3', items: ['322325453253', '24523453254325'], subtotal: 32.50, tax: 2.68, total: 35.18})`
+  `axios.post('/api/sales', {customerId: 'af3c3dd333234a3', items: ['322325453253', '24523453254325'], subtotal: 32.50, tax: 2.68, total: 35.18})`
 
 ## **Get Sale**
 
@@ -201,7 +201,7 @@ _Retrieves sale._
 
 - **Sample Call:**
 
-  axios.get('/api/sale/153456')
+  axios.get('/api/sales/153456')
 
 ## **Get All Sales**
 
@@ -243,7 +243,7 @@ _Retrieves all sales._
 Edit a sale;
 
 - **URL**
-  /api/sale/:id
+  /api/sales/:id
 
 - **Method:**
   `PUT`
@@ -268,14 +268,14 @@ Edit a sale;
 
 * **Sample Call:**
 
-  `axios.put('/api/sale/34543534', {customerId: 'af3c3dd333234a3', items: ['322325453253', '24523453254325', '2343241432342'], subtotal: 32.50, tax: 2.68, total: 35.18})`
+  `axios.put('/api/sales/34543534', {customerId: 'af3c3dd333234a3', items: ['322325453253', '24523453254325', '2343241432342'], subtotal: 32.50, tax: 2.68, total: 35.18})`
 
 ## **Delete Sale**
 
 Delete a sale;
 
 - **URL**
-  /api/sale/:id
+  /api/sales/:id
 
 - **Method:**
   `DELETE`
@@ -300,14 +300,14 @@ Delete a sale;
 
 * **Sample Call:**
 
-  `axios.delete('/api/sale/34543534',)`
+  `axios.delete('/api/sales/34543534',)`
 
 ## **Create Customer**
 
 Create a new customer
 
 - **URL**
-  /api/customer/
+  /api/customers/
 
 - **Method:**
   `POST`
@@ -332,7 +332,7 @@ Create a new customer
 
 * **Sample Call:**
 
-  `axios.post('/api/customer', {name: [String], email:[String], phone: [Number], address: {street: [String], city: [String], state: [String]}}`
+  `axios.post('/api/customers', {name: [String], email:[String], phone: [Number], address: {street: [String], city: [String], state: [String]}}`
 
 ## **Get Customer**
 
@@ -367,7 +367,7 @@ _Retrieves customer._
 
 - **Sample Call:**
 
-  axios.get('/api/customer/153456')
+  axios.get('/api/customers/153456')
 
 ## **Get All Customers**
 
@@ -409,7 +409,7 @@ _Retrieves all customers._
 Edit a customer;
 
 - **URL**
-  /api/customer/:id
+  /api/customers/:id
 
 - **Method:**
   `PUT`
@@ -434,14 +434,14 @@ Edit a customer;
 
 * **Sample Call:**
 
-  `axios.put('/api/customer/34543534', {name: 'John Doe', email: 'jdoe@gmail.com', phone: 5555555555, address: {street: '123 Main', city: 'San Francisco', state: 'CA'}, purchaseHistory: ['4456432', '354351', '543551']}`
+  `axios.put('/api/customers/34543534', {name: 'John Doe', email: 'jdoe@gmail.com', phone: 5555555555, address: {street: '123 Main', city: 'San Francisco', state: 'CA'}, purchaseHistory: ['4456432', '354351', '543551']}`
 
 ## **Delete Customer**
 
 Delete a customer;
 
 - **URL**
-  /api/customer/:id
+  /api/customers/:id
 
 - **Method:**
   `DELETE`
@@ -466,14 +466,14 @@ Delete a customer;
 
 * **Sample Call:**
 
-  `axios.delete('/api/customer/34543534',)`
+  `axios.delete('/api/customers/34543534',)`
 
 ## **Create Vendor**
 
 Create a new vendor
 
 - **URL**
-  /api/vendor/
+  /api/vendors/
 
 - **Method:**
   `POST`
@@ -498,7 +498,7 @@ Create a new vendor
 
 * **Sample Call:**
 
-  `axios.post('/api/vendor', {name: 'Sample Industries', email: contact@sample.com, phone: 5239484876, address: {street: '123 Sample St', city: 'San Francisco', state: 'CA'}, contact: 'John', owed: 150.93}`
+  `axios.post('/api/vendors', {name: 'Sample Industries', email: contact@sample.com, phone: 5239484876, address: {street: '123 Sample St', city: 'San Francisco', state: 'CA'}, contact: 'John', owed: 150.93}`
 
 ## **Get Vendor**
 
@@ -533,7 +533,7 @@ _Retrieves vendor._
 
 - **Sample Call:**
 
-  axios.get('/api/vendor/153456')
+  axios.get('/api/vendors/153456')
 
 ## **Get All Vendors**
 
@@ -575,7 +575,7 @@ _Retrieves all vendors._
 Edit a vendor;
 
 - **URL**
-  /api/vendor/:id
+  /api/vendors/:id
 
 - **Method:**
   `PUT`
@@ -600,14 +600,14 @@ Edit a vendor;
 
 * **Sample Call:**
 
-  `axios.put('/api/vendor/34543534', {name: 'Sample Industries', email: contact@sample.com, phone: 123456789, address: {street: '123 Sample St', city: 'San Francisco', state: 'CA'}, contact: 'John', owed: 150.93}`
+  `axios.put('/api/vendors/34543534', {name: 'Sample Industries', email: contact@sample.com, phone: 123456789, address: {street: '123 Sample St', city: 'San Francisco', state: 'CA'}, contact: 'John', owed: 150.93}`
 
 ## **Delete Vendor**
 
 Delete a vendor;
 
 - **URL**
-  /api/vendor/:id
+  /api/vendors/:id
 
 - **Method:**
   `DELETE`
@@ -632,14 +632,14 @@ Delete a vendor;
 
 * **Sample Call:**
 
-  `axios.delete('/api/vendor/34543534',)`
+  `axios.delete('/api/vendors/34543534',)`
 
 ## **Create Purchase**
 
 Create a new purchase
 
 - **URL**
-  /api/purchase/
+  /api/purchases/
 
 - **Method:**
   `POST`
@@ -664,7 +664,7 @@ Create a new purchase
 
 * **Sample Call:**
 
-  `axios.post('/api/purchase', {name: 'Sample Industries', email: contact@sample.com, phone: 5239484876, address: {street: '123 Sample St', city: 'San Francisco', state: 'CA'}, contact: 'John', owed: 150.93}`
+  `axios.post('/api/purchases', {name: 'Sample Industries', email: contact@sample.com, phone: 5239484876, address: {street: '123 Sample St', city: 'San Francisco', state: 'CA'}, contact: 'John', owed: 150.93}`
 
 ## **Get Purchase**
 
@@ -699,7 +699,7 @@ _Retrieves purchase._
 
 - **Sample Call:**
 
-  axios.get('/api/purchase/153456')
+  axios.get('/api/purchases/153456')
 
 ## **Get All Purchases**
 
@@ -741,7 +741,7 @@ _Retrieves all purchases._
 Edit a purchase;
 
 - **URL**
-  /api/purchase/:id
+  /api/purchases/:id
 
 - **Method:**
   `PUT`
@@ -766,14 +766,14 @@ Edit a purchase;
 
 * **Sample Call:**
 
-  `axios.put('/api/purchase/34543534', {name: 'Sample Industries', email: contact@sample.com, phone: 123456789, address: {street: '123 Sample St', city: 'San Francisco', state: 'CA'}, contact: 'John', owed: 150.93}`
+  `axios.put('/api/purchases/34543534', {name: 'Sample Industries', email: contact@sample.com, phone: 123456789, address: {street: '123 Sample St', city: 'San Francisco', state: 'CA'}, contact: 'John', owed: 150.93}`
 
 ## **Delete Purchase**
 
 Delete a purchase;
 
 - **URL**
-  /api/purchase/:id
+  /api/purchases/:id
 
 - **Method:**
   `DELETE`
@@ -798,4 +798,4 @@ Delete a purchase;
 
 * **Sample Call:**
 
-  `axios.delete('/api/purchase/34543534',)`
+  `axios.delete('/api/purchases/34543534',)`
