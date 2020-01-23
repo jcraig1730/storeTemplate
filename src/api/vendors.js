@@ -17,8 +17,8 @@ const updateVendor = async (req, res) => {
   try {
     const { id } = req.params;
     const updatedInfo = req.body;
-    const updatedVendor = await Vendor.findByIdAndUpdate(id, updatedInfo);
-    res.status(200).json(updatedVendor);
+    await Vendor.findByIdAndUpdate(id, updatedInfo);
+    res.status(204);
   } catch (err) {
     res.status(400).json({ err });
   }
