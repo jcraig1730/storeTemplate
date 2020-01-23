@@ -7,7 +7,7 @@ const createPurchase = async (req, res) => {
   try {
     const purchaseData = req.body;
     const newPurchase = await new Purchase(purchaseData).save();
-    res.status(204);
+    res.sendStatus(204);
   } catch (err) {
     res.status(500).json({ err });
   }
@@ -18,7 +18,7 @@ const updatePurchase = async (req, res) => {
     const { id } = req.params;
     const updatedInfo = req.body;
     const updatedPurchase = await Purchase.findByIdAndUpdate(id, updatedInfo);
-    res.status(200).json(updatedPurchase);
+    res.statusStatus(204);
   } catch (err) {
     res.status(400).json({ err });
   }

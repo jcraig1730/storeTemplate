@@ -7,7 +7,12 @@ const customerSchema = new Schema(
     name: String,
     email: String,
     phone: Number,
-    address: String,
+    address: {
+      street: String,
+      city: String,
+      state: String,
+      zip: Number
+    },
     purchaseHistory: [Schema.Types.ObjectId]
   },
   { timestamps: true }
