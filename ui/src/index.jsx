@@ -2,13 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { StateProvider } from "./state/State";
-import reducer from "./state/reducers";
+import reducer from "./state/reducers.js";
 import App from "./components/App";
 
+console.log(reducer, "hi");
 const initalState = {
   isLoggedIn: false,
   cart: {
-    hasCheckedOut: false,
+    isCheckedOut: false,
     items: []
   },
   name: null,

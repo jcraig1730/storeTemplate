@@ -1,10 +1,8 @@
-const 
-
-export default reducer = (state, action) => {
-  switch(action.type){
-    case '':
-      return {
-        
-      }
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "":
+      return {};
   }
-}
+};
+
+export default reducer;
