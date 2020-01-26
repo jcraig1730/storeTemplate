@@ -43,7 +43,6 @@ const AddProduct = ({ vendors, updateProducts }) => {
     if (dataValidationCheck.error) return;
     try {
       const result = await createItem(apiCallData);
-      console.log(result);
       if (result.status === 201) {
         updateProducts();
         setTitle("");
@@ -66,14 +65,14 @@ const AddProduct = ({ vendors, updateProducts }) => {
   return (
     <form className="border p-3 mr-3 mt-3 rounded" onSubmit={handleSubmit}>
       <div
-        class={`mt-0 ml-0 alert alert-danger ${
+        className={`mt-0 ml-0 alert alert-danger ${
           isError.error ? "d-block" : "d-none"
         }`}
       >
         <strong>{isError.title}!</strong>
       </div>
       <div
-        class={`alert alert-success ${
+        className={`alert alert-success ${
           addProductSuccess ? "d-block" : "d-none"
         }`}
       >

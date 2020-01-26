@@ -4,14 +4,24 @@ import PropTypes from "prop-types";
 import ConfirmDelete from "./ConfirmDelete";
 import { deleteItem } from "../../../../apiCalls";
 
-const ListItem = ({ product, updateProducts }) => {
+const ListItem = ({ product, updateProducts, setIsError }) => {
   const [isHovered, setIsHovered] = useState(false);
   const handleMouseOver = e =>
     e === "enter" ? setIsHovered(true) : setIsHovered(false);
 
   const deleteProduct = async e => {
     try {
-      await deleteItem({ category: "products", data: { id: product._id } });
+      const result = await deleteItem({
+        category: "products",
+        data: { id: product._id }
+      });
+      if (result.status !== 204) {
+        throw {
+          title: "Could Not Delete",
+          message:
+            "An error has occured in deleting this item. Please try again."
+        };
+      }
       updateProducts();
     } catch (err) {
       console.log(err);

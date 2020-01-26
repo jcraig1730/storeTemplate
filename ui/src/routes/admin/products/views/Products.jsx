@@ -12,27 +12,24 @@ const Products = () => {
   const updateProducts = async () => {
     try {
       const products = await getAllItems({ category: "products" });
-      console.log(products.status, "hi");
       if (products.status !== 200) {
         throw { error: true, message: "Server unavailable" };
       }
       setProductList(products.data);
-      console.log(products);
     } catch (err) {
-      console.log(err);
       setIsError(err);
-      console.log(err);
     }
   };
 
   const updateVendors = async () => {
     try {
       const vendors = await getAllItems({ category: "vendors" });
+      if (vendors.status !== 200) {
+        throw { error: true, message: "Server unavailable" };
+      }
       setVendorList(vendors.data);
     } catch (err) {
-      console.log("in vendor error");
-      setProductList(["An error has occured on this pages"]);
-      console.log(err);
+      setIsError(err);
     }
   };
 
@@ -44,7 +41,9 @@ const Products = () => {
   return (
     <div>
       <div
-        class={`alert alert-danger ${isError.error ? "d-block" : "d-none"} `}
+        className={`alert alert-danger ${
+          isError.error ? "d-block" : "d-none"
+        } `}
         role="alert"
       >
         {isError.message}
@@ -55,6 +54,7 @@ const Products = () => {
             <ProductList
               products={productList}
               updateProducts={updateProducts}
+              setIsError={setIsError}
             />
           </div>
           <div className="col"></div>
@@ -64,7 +64,11 @@ const Products = () => {
             }
             className="w-50 fixed-top"
           >
-            <AddProduct vendors={vendorList} updateProducts={updateProducts} />
+            <AddProduct
+              vendors={vendorList}
+              updateProducts={updateProducts}
+              setIsError={setIsError}
+            />
           </div>
         </div>
       </div>
