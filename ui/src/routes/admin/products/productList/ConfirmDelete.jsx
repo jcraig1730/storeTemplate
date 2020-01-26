@@ -1,43 +1,50 @@
 import React from "react";
+import { deleteItem } from "../../../../apiCalls";
+import PropTypes from "prop-types";
 
-const ConfirmDelete = ({ product }) => {
+const ConfirmDelete = ({ product, deleteProduct }) => {
   return (
     <div
-      class="modal fade"
-      id="deleteProductModal"
-      tabindex="-1"
+      className="modal fade"
+      id={`confirm-delete-${product._id}`}
+      tabIndex="-1"
       role="dialog"
       aria-labelledby="deleteProduct"
       aria-hidden="true"
     >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="deleteProduct">
+      <div className="modal-dialog" role="document">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="deleteProduct">
               Delete Product
             </h5>
             <button
               type="button"
-              class="close"
+              className="close"
               data-dismiss="modal"
               aria-label="Close"
             >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div className="modal-body">
             Are you sure you want to delete {product.title}? It will be
             permanently deleted.
           </div>
-          <div class="modal-footer">
+          <div className="modal-footer">
             <button
               type="button"
-              class="btn btn-secondary"
+              className="btn btn-secondary"
               data-dismiss="modal"
             >
               Cancel
             </button>
-            <button type="button" class="btn btn-danger">
+            <button
+              type="button"
+              onClick={deleteProduct}
+              className="btn btn-danger"
+              data-dismiss="modal"
+            >
               Delete Product
             </button>
           </div>
@@ -45,6 +52,11 @@ const ConfirmDelete = ({ product }) => {
       </div>
     </div>
   );
+};
+
+ConfirmDelete.propTypes = {
+  product: PropTypes.object.isRequired,
+  deleteProduct: PropTypes.func.isRequired
 };
 
 export default ConfirmDelete;
