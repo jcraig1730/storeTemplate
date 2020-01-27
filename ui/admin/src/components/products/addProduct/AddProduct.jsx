@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createItem, verifyProduct } from "../../../../apiCalls";
+import { createItem, verifyProduct } from "../../../apiCalls";
 import PropTypes from "prop-types";
 
 const AddProduct = ({ vendors, updateProducts }) => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import ProductList from "../productList/ProductList";
 import AddProduct from "../addProduct/AddProduct";
-import { getAllItems } from "../../../../apiCalls";
+import { getAllItems } from "../../../apiCalls";
 
 const Products = () => {
   const [productList, setProductList] = useState([]);

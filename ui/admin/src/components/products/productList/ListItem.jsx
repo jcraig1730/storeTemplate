@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import ConfirmDelete from "./ConfirmDelete";
-import { deleteItem } from "../../../../apiCalls";
+import { deleteItem } from "../../../apiCalls";
 
 const ListItem = ({ product, updateProducts, setIsError }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -28,6 +28,8 @@ const ListItem = ({ product, updateProducts, setIsError }) => {
     }
   };
 
+  console.log(product, "insdie list item");
+
   return (
     <div
       className="list-group-item"
@@ -35,9 +37,9 @@ const ListItem = ({ product, updateProducts, setIsError }) => {
       onMouseLeave={handleMouseOver}
     >
       <div className={`${isHovered ? "visible" : "invisible"} float-right`}>
-        <div data-toggle="modal" data-target={`#confirm-delete-${product._id}`}>
+        <a href={`#confirm-delete-${product._id}`} data-toggle={`modal`}>
           <i className="fas fa-trash text-danger"></i>
-        </div>
+        </a>
       </div>
       <div className={`${isHovered ? "visible" : "invisible"} float-right`}>
         <i className="fas fa-edit pr-3 text-primary"></i>

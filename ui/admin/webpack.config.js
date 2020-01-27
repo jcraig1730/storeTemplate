@@ -20,6 +20,6 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     contentBase: path.join(__dirname, "dist"),
-    port: 3003
+    port: 3002
   }
 };

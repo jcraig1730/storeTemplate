@@ -9,7 +9,7 @@
     "run": "node server",
     "dev-build": "webpack --mode development",
     "dev-run": "nodemon server",
-    "dev": "concurrently \"webpack-dev-server --watch\""
+    "dev": "webpack-dev-server --watch"
   },
   "keywords": [],
   "author": "",
@@ -20,16 +20,16 @@
     "@babel/preset-react": "^7.8.3",
     "babel-loader": "^8.0.6",
     "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "concurrently": "^5.0.2",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
-    "regenerator-runtime": "^0.13.3",
-    "webpack-dev-server": "^3.10.1"
+    "regenerator-runtime": "^0.13.3"
   }
 }

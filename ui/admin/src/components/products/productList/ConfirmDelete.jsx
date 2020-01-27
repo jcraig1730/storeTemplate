@@ -1,8 +1,9 @@
 import React from "react";
-import { deleteItem } from "../../../../apiCalls";
+import { deleteItem } from "../../../apiCalls";
 import PropTypes from "prop-types";
 
 const ConfirmDelete = ({ product, deleteProduct }) => {
+  console.log("in confirm delete", product);
   return (
     <div
       className="modal fade"
