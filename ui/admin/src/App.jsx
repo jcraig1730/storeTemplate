@@ -5,7 +5,6 @@ import ProductsRouter from "./components/products/ProductsRouter";
 import { StateProvider } from "./state/State";
 import { reducer } from "./state/reducers";
 
-console.log("admin running");
 const initalState = {
   isLoggedIn: false,
   cart: {
@@ -18,7 +17,6 @@ const initalState = {
 };
 
 const App = props => {
-  console.log(window.location.href);
   return (
     <StateProvider initalState={initalState} reducer={reducer}>
       <Router>

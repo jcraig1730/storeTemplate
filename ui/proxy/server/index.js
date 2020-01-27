@@ -1,22 +1,21 @@
 const express = require("express");
 const path = require("path");
+const bodyParser = require("body-parser");
 
-const adminRouter = require("./admin.js");
 const app = express();
-const router = express.Router();
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "../dist")));
+app.use(bodyParser.json());
 
-const handleAdminRoute = router.get("*", (req, res) =>
-  res.sendFile(path.join(__dirname, "../dist/index.html"))
-);
+app.use("/admin*", (req, res) => {
+  app.use(express.static(path.join(__dirname, "../dist")));
+  res.sendFile(path.join(__dirname, "../dist/index.html"));
+});
 
-app.get("/admin/*", handleAdminRoute);
-
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../dist/index.html"));
-// });
+app.get("/", (req, res) => {
+  app.use(express.static(path.join(__dirname, "../customerDist")));
+  res.sendFile(path.join(__dirname, "../dist/index.html"));
+});
 
 const port = process.env.PORT || 3000;
 

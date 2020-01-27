@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createItem, verifyProduct } from "../../../apiCalls";
+import { createItem, verifyProduct } from "../../../utilities";
 import PropTypes from "prop-types";
 
 const AddProduct = ({ vendors, updateProducts }) => {
@@ -31,16 +31,20 @@ const AddProduct = ({ vendors, updateProducts }) => {
         break;
     }
   };
+
   const handleSubmit = async e => {
     e.preventDefault();
+
     const productData = { title, description, quantity, cost, vendor };
     const apiCallData = {
       category: "products",
       data: productData
     };
+
     const dataValidationCheck = verifyProduct(productData);
     setIsError(dataValidationCheck);
     if (dataValidationCheck.error) return;
+
     try {
       const result = await createItem(apiCallData);
       if (result.status === 201) {
@@ -137,13 +141,11 @@ const AddProduct = ({ vendors, updateProducts }) => {
           <option className="inactive" value="defaultSelect" disabled selected>
             Please choose
           </option>
-          {vendors &&
-            vendors.length &&
-            vendors.map(vendor => (
-              <option className="" value={vendor._id} key={vendor._id}>
-                {vendor._id}
-              </option>
-            ))}
+          {vendors.map(vendor => (
+            <option className="" value={vendor._id} key={vendor._id}>
+              {vendor._id}
+            </option>
+          ))}
         </select>
       </div>
       <button type="submit" className="btn btn-primary mt-3">

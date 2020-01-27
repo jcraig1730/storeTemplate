@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import ConfirmDelete from "./ConfirmDelete";
-import { deleteItem } from "../../../apiCalls";
+import { deleteItem } from "../../../utilities";
 
 const ListItem = ({ product, updateProducts, setIsError }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -28,8 +28,6 @@ const ListItem = ({ product, updateProducts, setIsError }) => {
     }
   };
 
-  console.log(product, "insdie list item");
-
   return (
     <div
       className="list-group-item"
@@ -41,9 +39,9 @@ const ListItem = ({ product, updateProducts, setIsError }) => {
           <i className="fas fa-trash text-danger"></i>
         </a>
       </div>
-      <div className={`${isHovered ? "visible" : "invisible"} float-right`}>
+      <a className={`${isHovered ? "visible" : "invisible"} float-right`}>
         <i className="fas fa-edit pr-3 text-primary"></i>
-      </div>
+      </a>
       <div>Title: {product.title}</div>
       <div>Description: {product.description}</div>
       <div>Qty: {product.quantity}</div>
@@ -52,7 +50,7 @@ const ListItem = ({ product, updateProducts, setIsError }) => {
   );
 };
 
-ConfirmDelete.propTypes = {
+ListItem.propTypes = {
   product: PropTypes.object.isRequired,
   updateProducts: PropTypes.func.isRequired
 };
