@@ -7,13 +7,16 @@ import { reducer } from "./state/reducers";
 
 const initalState = {
   isLoggedIn: false,
-  cart: {
-    isCheckedOut: false,
-    items: []
+  user: {
+    username: "",
+    token: ""
   },
-  name: null,
-  viewHistory: null,
-  purchaseHistory: null
+  products: [],
+  vendors: [],
+  sales: [],
+  purchases: [],
+  customers: [],
+  isError: { error: false, errorOn: "", title: "", message: "", errorOn: "" }
 };
 
 const App = props => {
