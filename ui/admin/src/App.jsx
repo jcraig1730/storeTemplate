@@ -5,29 +5,13 @@ import ProductsRouter from "./components/products/ProductsRouter";
 import { StateProvider } from "./state/State";
 import { reducer } from "./state/reducers";
 
-const initalState = {
-  isLoggedIn: false,
-  user: {
-    username: "",
-    token: ""
-  },
-  products: [],
-  vendors: [],
-  sales: [],
-  purchases: [],
-  customers: [],
-  isError: { error: false, errorOn: "", title: "", message: "", errorOn: "" }
-};
-
 const App = props => {
   return (
-    <StateProvider initalState={initalState} reducer={reducer}>
-      <Router>
-        <Switch>
-          <Route path={`/admin/products`} component={ProductsRouter} />
-        </Switch>
-      </Router>
-    </StateProvider>
+    <Router>
+      <Switch>
+        <Route path={`/admin/products`} component={ProductsRouter} />
+      </Switch>
+    </Router>
   );
 };
 

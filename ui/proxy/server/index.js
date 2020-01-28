@@ -12,9 +12,9 @@ app.use("/admin*", (req, res) => {
   res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
 
-app.get("/", (req, res) => {
+app.use("/", (req, res) => {
   app.use(express.static(path.join(__dirname, "../customerDist")));
-  res.sendFile(path.join(__dirname, "../dist/index.html"));
+  res.sendFile(path.join(__dirname, "../customerDist/index.html"));
 });
 
 const port = process.env.PORT || 3000;

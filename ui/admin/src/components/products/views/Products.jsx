@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 
+import { useStateValue } from "../../../state/State";
+import { types } from "../../../state/reducers";
 import ProductList from "../productList/ProductList";
 import AddProduct from "../addProduct/AddProduct";
 import { getAllItems } from "../../../utilities";
 
 const Products = () => {
-  const [productList, setProductList] = useState([]);
-  const [vendorList, setVendorList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState({});
+  const [{ products, vendors }, dispatch] = useStateValue();
+  const { UPDATE_PRODUCTS, UPDATE_VENDORS } = types;
 
   const updateProducts = async () => {
     try {
@@ -15,7 +18,7 @@ const Products = () => {
       if (products.status !== 200) {
         throw { error: true, message: "Server unavailable" };
       }
-      setProductList(products.data);
+      dispatch({ type: UPDATE_PRODUCTS, payload: products.data });
     } catch (err) {
       setIsError(err);
     }
@@ -27,16 +30,23 @@ const Products = () => {
       if (vendors.status !== 200) {
         throw { error: true, message: "Server unavailable" };
       }
-      setVendorList(vendors.data);
+
+      dispatch({ type: UPDATE_VENDORS, payload: vendors.data });
     } catch (err) {
       setIsError(err);
     }
   };
 
-  useEffect(() => {
-    updateProducts();
-    updateVendors();
-  }, []);
+  useEffect(
+    () =>
+      (async () => {
+        setIsLoading(true);
+        await updateProducts();
+        await updateVendors();
+        setIsLoading(false);
+      })(),
+    []
+  );
 
   return (
     <div>
@@ -51,11 +61,15 @@ const Products = () => {
       <div className="container-fluid pt-3">
         <div className="row">
           <div className="col" style={{ top: "-15px" }}>
-            <ProductList
-              products={productList}
-              updateProducts={updateProducts}
-              setIsError={setIsError}
-            />
+            {isLoading ? (
+              <div>loading...</div>
+            ) : (
+              <ProductList
+                products={products}
+                updateProducts={updateProducts}
+                setIsError={setIsError}
+              />
+            )}
           </div>
           <div className="col"></div>
           <div
@@ -64,11 +78,15 @@ const Products = () => {
             }
             className="w-50 fixed-top"
           >
-            <AddProduct
-              vendors={vendorList}
-              updateProducts={updateProducts}
-              setIsError={setIsError}
-            />
+            {isLoading ? (
+              <div>loading</div>
+            ) : (
+              <AddProduct
+                vendors={vendors}
+                updateProducts={updateProducts}
+                setIsError={setIsError}
+              />
+            )}
           </div>
         </div>
       </div>
