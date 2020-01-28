@@ -4,6 +4,7 @@ import { useStateValue } from "../../../state/State";
 import { types } from "../../../state/reducers";
 import ProductList from "../productList/ProductList";
 import AddProduct from "../addProduct/AddProduct";
+import LoadingSpinner from "../../common/LoadingSpinner";
 import { getAllItems } from "../../../utilities";
 
 const Products = () => {
@@ -62,7 +63,7 @@ const Products = () => {
         <div className="row">
           <div className="col" style={{ top: "-15px" }}>
             {isLoading ? (
-              <div>loading...</div>
+              <LoadingSpinner />
             ) : (
               <ProductList
                 products={products}
@@ -79,7 +80,7 @@ const Products = () => {
             className="w-50 fixed-top"
           >
             {isLoading ? (
-              <div>loading</div>
+              <LoadingSpinner />
             ) : (
               <AddProduct
                 vendors={vendors}
