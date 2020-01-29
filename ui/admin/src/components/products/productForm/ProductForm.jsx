@@ -6,11 +6,11 @@ import TextField from "../../common/forms/TextField";
 import Select from "../../common/forms/Select";
 import { useStateValue } from "../.././../state/State";
 
-const ProductForm = ({ updateProducts, productData }) => {
+const ProductForm = ({ updateProducts, productData, id }) => {
   const [{ vendors }, dispatch] = useStateValue();
-
   let initialFormData;
   let type;
+
   if (productData !== undefined) {
     const { title, description, quantity, cost, vendor } = productData;
     initialFormData = {
@@ -47,13 +47,11 @@ const ProductForm = ({ updateProducts, productData }) => {
 
   const handleChange = e => {
     const { id, value } = e.target;
-    console.log(id);
     setFormData({ ...formData, [id]: value });
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
-
     const productData = { title, description, quantity, cost, vendor };
     const apiCallData = {
       category: "products",
@@ -69,21 +67,23 @@ const ProductForm = ({ updateProducts, productData }) => {
           on: "title"
         };
       }
-
       let result;
       if (type === "create") {
         result = await createItem(apiCallData);
       } else {
-        result = await updateItem(apiCallData);
+        result = await updateItem(apiCallData, id);
       }
       if (result.status === 201 || result.status === 204) {
         updateProducts();
-        setFormData(initialFormData);
+
         setAlert({
           status: true,
           type: "success",
           info: { title: `Item ${type === "create" ? "added" : "edited"}` }
         });
+        if (type === "create") {
+          setFormData(initialFormData);
+        }
       } else {
         throw {
           title: "Server unavailable",
@@ -166,7 +166,8 @@ const ProductForm = ({ updateProducts, productData }) => {
 
 ProductForm.propTypes = {
   updateProducts: PropTypes.func.isRequired,
-  productData: PropTypes.object
+  productData: PropTypes.object,
+  id: PropTypes.string
 };
 
 export default ProductForm;
