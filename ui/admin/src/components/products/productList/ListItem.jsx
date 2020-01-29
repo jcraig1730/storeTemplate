@@ -2,10 +2,20 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import ConfirmDelete from "./ConfirmDelete";
+import AlertBanner from "../../common/alertBanners/AlertBanner";
 import { deleteItem } from "../../../utilities";
 
 const ListItem = ({ product, updateProducts, setIsError }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [alert, setAlert] = useState({
+    status: false,
+    type: "",
+    on: "",
+    info: {
+      title: "",
+      message: ""
+    }
+  });
   const handleMouseOver = e =>
     e === "enter" ? setIsHovered(true) : setIsHovered(false);
 
@@ -17,14 +27,12 @@ const ListItem = ({ product, updateProducts, setIsError }) => {
       });
       if (result.status !== 204) {
         throw {
-          title: "Could Not Delete",
-          message:
-            "An error has occured in deleting this item. Please try again."
+          title: "An error has occured in deleting this item. Please try again."
         };
       }
       updateProducts();
     } catch (err) {
-      console.log(err);
+      setAlert({ type: "error", status: true, info: err });
     }
   };
 
@@ -34,6 +42,11 @@ const ListItem = ({ product, updateProducts, setIsError }) => {
       onMouseEnter={() => handleMouseOver("enter")}
       onMouseLeave={handleMouseOver}
     >
+      <AlertBanner
+        type="error"
+        shouldDisplay={alert.status}
+        info={alert.info}
+      />
       <div className={`${isHovered ? "visible" : "invisible"} float-right`}>
         <a href={`#confirm-delete-${product._id}`} data-toggle={`modal`}>
           <i className="fas fa-trash text-danger"></i>
@@ -45,7 +58,7 @@ const ListItem = ({ product, updateProducts, setIsError }) => {
       <div>Title: {product.title}</div>
       <div>Description: {product.description}</div>
       <div>Qty: {product.quantity}</div>
-      {<ConfirmDelete product={product} deleteProduct={deleteProduct} />}
+      <ConfirmDelete product={product} deleteProduct={deleteProduct} />
     </div>
   );
 };
