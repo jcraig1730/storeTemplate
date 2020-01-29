@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import ConfirmDelete from "./ConfirmDelete";
+import EditItem from "./EditItem";
 import AlertBanner from "../../common/alertBanners/AlertBanner";
 import { deleteItem } from "../../../utilities";
 
 const ListItem = ({ product, updateProducts, setIsError }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
   const [alert, setAlert] = useState({
     status: false,
     type: "",
@@ -52,12 +55,25 @@ const ListItem = ({ product, updateProducts, setIsError }) => {
           <i className="fas fa-trash text-danger"></i>
         </a>
       </div>
-      <a className={`${isHovered ? "visible" : "invisible"} float-right`}>
-        <i className="fas fa-edit pr-3 text-primary"></i>
-      </a>
+      <div className={`${isHovered ? "visible" : "invisible"} float-right`}>
+        <a
+          href={`#edit-item-${product._id}`}
+          onClick={() => setIsEditing(true)}
+          data-toggle={`modal`}
+        >
+          <i className="fas fa-edit pr-3 text-primary"></i>
+        </a>
+      </div>
       <div>Title: {product.title}</div>
       <div>Description: {product.description}</div>
       <div>Qty: {product.quantity}</div>
+      {(isHovered || isEditing) && (
+        <EditItem
+          item={product}
+          updateProducts={updateProducts}
+          onClose={() => setIsEditing(false)}
+        />
+      )}
       <ConfirmDelete product={product} deleteProduct={deleteProduct} />
     </div>
   );
