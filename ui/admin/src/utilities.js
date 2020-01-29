@@ -38,9 +38,9 @@ export const getAllItems = async ({ category }) => {
   }
 };
 
-export const updateItem = async ({ category, data }) => {
+export const updateItem = async ({ category, data }, id) => {
   try {
-    const result = await Axios.put(`${apiUrl}/${category}`, data);
+    const result = await Axios.put(`${apiUrl}/${category}/${id}`, data);
     return result;
   } catch (err) {
     return err;
