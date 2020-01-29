@@ -6,7 +6,7 @@ import TextField from "../../common/forms/TextField";
 import Select from "../../common/forms/Select";
 import { useStateValue } from "../.././../state/State";
 
-const ProductForm = ({ updateProducts, fields, productData }) => {
+const ProductForm = ({ updateProducts, productData }) => {
   const [{ vendors }, dispatch] = useStateValue();
 
   let initialFormData;
@@ -47,6 +47,7 @@ const ProductForm = ({ updateProducts, fields, productData }) => {
 
   const handleChange = e => {
     const { id, value } = e.target;
+    console.log(id);
     setFormData({ ...formData, [id]: value });
   };
 
@@ -132,7 +133,7 @@ const ProductForm = ({ updateProducts, fields, productData }) => {
           type: "text",
           id: "quantity",
           onChange: handleChange,
-          value: description,
+          value: quantity,
           label: "Quantity",
           alert
         }}
