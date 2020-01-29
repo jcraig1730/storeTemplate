@@ -1,8 +1,9 @@
 import "regenerator-runtime";
 import Axios from "axios";
 
+const adminUrl = process.env.ADMIN_URL || "http://localhost:3002";
+
 (async () => {
-  console.log(document.URL);
-  const Admin = await Axios.get("http://localhost:3002/bundle.js");
-  await eval(Admin.data);
+  const Admin = await Axios.get(`${adminUrl}/bundle.js`);
+  eval(Admin.data);
 })();

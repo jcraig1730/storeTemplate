@@ -1,7 +1,3 @@
-// import express from "express";
-// import path from "path";
-// import ReactDOMServer from "react-dom/server";
-// import { StaticRouter } from "react-router-dom";
 const express = require("express");
 const path = require("path");
 const app = express();
