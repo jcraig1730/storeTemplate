@@ -65,11 +65,7 @@ const Products = () => {
             {isLoading ? (
               <LoadingSpinner />
             ) : (
-              <ProductList
-                products={products}
-                updateProducts={updateProducts}
-                setIsError={setIsError}
-              />
+              <ProductList updateProducts={updateProducts} />
             )}
           </div>
           <div className="col"></div>
@@ -82,11 +78,7 @@ const Products = () => {
             {isLoading ? (
               <LoadingSpinner />
             ) : (
-              <AddProduct
-                vendors={vendors}
-                updateProducts={updateProducts}
-                setIsError={setIsError}
-              />
+              <AddProduct updateProducts={updateProducts} />
             )}
           </div>
         </div>

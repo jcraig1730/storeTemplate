@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useStateValue } from "../../../state/State";
 
 import ListItem from "./ListItem";
 
-const ProductList = ({ products, updateProducts }) => {
+const ProductList = ({ updateProducts }) => {
+  const [{ products }, dispatch] = useStateValue();
   return (
     <ul className="list-group mt-3">
       {products.map(product => (
@@ -18,7 +20,6 @@ const ProductList = ({ products, updateProducts }) => {
 };
 
 ProductList.propTypes = {
-  products: PropTypes.array.isRequired,
   updateProducts: PropTypes.func.isRequired
 };
 
