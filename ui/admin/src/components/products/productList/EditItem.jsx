@@ -47,7 +47,9 @@ const EditItem = ({ item, updateProducts, onClose }) => {
 };
 
 EditItem.propTypes = {
-  item: PropTypes.object.isRequired
+  item: PropTypes.object.isRequired,
+  updateProducts: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired
 };
 
 export default EditItem;
