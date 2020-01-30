@@ -4,8 +4,17 @@ const apiUrl = "http://localhost:8000/api";
 
 export const createItem = async ({ category, data }) => {
   try {
-    const result = await Axios.post(`${apiUrl}/${category}`, data);
-    return result;
+    const { images, productData } = data;
+    const dataResult = await Axios.post(`${apiUrl}/${category}`, productData);
+    const id = dataResult.data._id;
+    if (images) {
+      const formData = new FormData();
+      formData.append("images", images);
+      await Axios.post(`${apiUrl}/${category}/${id}/image`, formData, {
+        "content-type": "multipart/form-data"
+      });
+    }
+    return dataResult;
   } catch (err) {
     return err;
   }
@@ -40,7 +49,16 @@ export const getAllItems = async ({ category }) => {
 
 export const updateItem = async ({ category, data }, id) => {
   try {
-    const result = await Axios.put(`${apiUrl}/${category}/${id}`, data);
+    const { images, productData } = data;
+    const result = await Axios.put(`${apiUrl}/${category}/${id}`, productData);
+    if (images) {
+      const formData = new FormData();
+      formData.append("images", images);
+      await Axios.put(`${apiUrl}/${category}/${id}/image`, formData, {
+        "content-type": "multipart/form-data"
+      });
+    }
+
     return result;
   } catch (err) {
     return err;
