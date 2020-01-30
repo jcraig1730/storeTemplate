@@ -16,7 +16,7 @@ const Select = ({ options }) => {
           Please choose
         </option>
         {selectOptions.map(option => (
-          <option className="" value={option._id} key={option._id}>
+          <option value={option._id} key={option._id}>
             {option.name}
           </option>
         ))}
