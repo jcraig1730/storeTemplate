@@ -4,21 +4,22 @@ import PropTypes from "prop-types";
 import AlertBanner from "../../common/alertBanners/AlertBanner";
 import TextField from "../../common/forms/TextField";
 import Select from "../../common/forms/Select";
+import SearchFilter from "../../common/search/SearchFilter";
+import CheckBoxSelect from "../../common/forms/CheckBoxSelect";
 import { useStateValue } from "../.././../state/State";
 
-const ProductForm = ({ updateProducts, fields, productData }) => {
+const ProductForm = ({ updateProducts, productData, id }) => {
   const [{ vendors }, dispatch] = useStateValue();
-
   let initialFormData;
   let type;
   if (productData !== undefined) {
-    const { title, description, quantity, cost, vendor } = productData;
+    const { title, description, quantity, cost } = productData;
     initialFormData = {
       title,
       description,
       quantity,
       cost,
-      vendor
+      vendorList: productData.vendors
     };
     type = "update";
   } else {
@@ -27,13 +28,15 @@ const ProductForm = ({ updateProducts, fields, productData }) => {
       description: "",
       quantity: "",
       cost: "",
-      vendor: ""
+      vendorList: []
     };
     type = "create";
   }
 
   const [formData, setFormData] = useState(initialFormData);
-  const { title, description, quantity, cost, vendor } = formData;
+  const { title, description, quantity, cost, vendorList } = formData;
+
+  const [filteredVendors, setFilteredVendors] = useState(null);
 
   const [alert, setAlert] = useState({
     status: false,
@@ -50,10 +53,40 @@ const ProductForm = ({ updateProducts, fields, productData }) => {
     setFormData({ ...formData, [id]: value });
   };
 
+  const handleVendorSearch = str => {
+    if (str.length === 0) {
+      return setFilteredVendors();
+    }
+    const regex = new RegExp(`${str.toLowerCase()}`, "i");
+    const filtered = vendors.filter(vendor =>
+      vendor.name ? vendor.name.match(regex) : false
+    );
+    setFilteredVendors(filtered);
+  };
+
+  const handleVendorSelect = async e => {
+    const { vendorList } = formData;
+    let idxOfVal = vendorList.indexOf(e.target.id);
+    if (idxOfVal > -1) {
+      let newList = vendorList
+        .slice(0, idxOfVal)
+        .concat(vendorList.slice(idxOfVal + 1));
+      setFormData({ ...formData, vendorList: newList });
+    } else {
+      vendorList.push(e.target.id);
+      setFormData({ ...formData, vendorList });
+    }
+  };
+
   const handleSubmit = async e => {
     e.preventDefault();
-
-    const productData = { title, description, quantity, cost, vendor };
+    const productData = {
+      title,
+      description,
+      quantity,
+      cost,
+      vendors: vendorList
+    };
     const apiCallData = {
       category: "products",
       data: productData
@@ -68,21 +101,23 @@ const ProductForm = ({ updateProducts, fields, productData }) => {
           on: "title"
         };
       }
-
       let result;
       if (type === "create") {
         result = await createItem(apiCallData);
       } else {
-        result = await updateItem(apiCallData);
+        result = await updateItem(apiCallData, id);
       }
       if (result.status === 201 || result.status === 204) {
         updateProducts();
-        setFormData(initialFormData);
+
         setAlert({
           status: true,
           type: "success",
           info: { title: `Item ${type === "create" ? "added" : "edited"}` }
         });
+        if (type === "create") {
+          setFormData(initialFormData);
+        }
       } else {
         throw {
           title: "Server unavailable",
@@ -132,7 +167,7 @@ const ProductForm = ({ updateProducts, fields, productData }) => {
           type: "text",
           id: "quantity",
           onChange: handleChange,
-          value: description,
+          value: quantity,
           label: "Quantity",
           alert
         }}
@@ -147,14 +182,11 @@ const ProductForm = ({ updateProducts, fields, productData }) => {
           alert
         }}
       />
-      <Select
-        options={{
-          label: "Vendor",
-          id: "vendor",
-          value: vendor,
-          onChange: handleChange,
-          selectOptions: vendors
-        }}
+      <SearchFilter callback={handleVendorSearch} label="Vendors" />
+      <CheckBoxSelect
+        selectOptions={filteredVendors || vendors}
+        currentlySelected={vendorList}
+        onCheck={handleVendorSelect}
       />
       <button type="submit" className="btn btn-primary mt-3">
         Submit
@@ -165,7 +197,8 @@ const ProductForm = ({ updateProducts, fields, productData }) => {
 
 ProductForm.propTypes = {
   updateProducts: PropTypes.func.isRequired,
-  productData: PropTypes.object
+  productData: PropTypes.object,
+  id: PropTypes.string
 };
 
 export default ProductForm;
