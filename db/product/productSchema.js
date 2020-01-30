@@ -6,7 +6,8 @@ const productSchema = new Schema(
   {
     title: String,
     description: String,
-    images: [String],
+    images: [{ key: String, location: String }],
+    mainImage: { type: Number, default: 0 }, //index of images array
     price: Number,
     cost: Number,
     quantity: Number,

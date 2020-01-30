@@ -1,7 +1,41 @@
 const express = require("express");
 const { Product } = require("../../db");
+const multer = require("multer");
+const multerS3 = require("multer-s3");
+const aws = require("aws-sdk");
+const uuidv4 = require("uuid/v4");
 
 const router = express.Router();
+
+const s3 = new aws.S3({ apiVersion: "2006-03-01" });
+const BUCKET = process.env.BUCKET || "store-images-jkc";
+
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: BUCKET,
+    key: (req, file, callback) => {
+      const extension = file.mimetype.split("/")[1];
+      const uuid = uuidv4();
+      // the callback assigns the key for the file in S3
+      callback(null, `${uuid}.${extension}`);
+    },
+    contentType: multerS3.AUTO_CONTENT_TYPE
+  })
+});
+
+const removeImagesFromS3 = images => {
+  const imageKeys = images.map(image => ({ Key: image.key }));
+  const params = {
+    Bucket: BUCKET,
+    Delete: {
+      Objects: imageKeys
+    }
+  };
+  s3.deleteObjects(params, (err, data) => {
+    if (err) throw err;
+  });
+};
 
 const createProduct = async (req, res) => {
   try {
@@ -18,7 +52,7 @@ const updateProduct = async (req, res) => {
     const { id } = req.params;
     const updatedInfo = req.body;
     await Product.findByIdAndUpdate(id, updatedInfo);
-    res.sendStatus(204);
+    res.status(204).send();
   } catch (err) {
     res.status(400).json({ err });
   }
@@ -59,6 +93,8 @@ const getProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
+    const target = await Product.findById(id);
+    await removeImagesFromS3(target.images);
     await Product.findByIdAndDelete(id);
     res.sendStatus(204);
   } catch (err) {
@@ -66,11 +102,42 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+// Needs documentatation in readme
+//-=-
+const uploadImage = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { key, location } = req.file;
+    const target = await Product.findById(id);
+    target.images.push({ key, location });
+    await target.save();
+    res.status(204).send();
+  } catch (err) {
+    res.status(402).json(err);
+  }
+};
+
+// Needs documentatation in readme
+//-=-
+const deleteImage = async (req, res) => {
+  const { id } = req.params;
+  const imageKeyToRemove = req.body;
+  await removeImagesFromS3([imageKeyToRemove]);
+  const target = await Product.findById(id);
+  target.images.filter(image => image.key !== imageKeyToRemove);
+};
+
+router.post("/:id/image/", upload.single("images"), uploadImage);
+router.put("/:id/image/", upload.single("images"), uploadImage);
+router.delete("/:id/image/:key", deleteImage);
 router.put("/:id", updateProduct);
-router.post("/", createProduct);
+router.post("/", upload.single("images"), createProduct);
 router.get("/:id", getProductById);
 router.get(/\/?/, getProduct);
 router.get("/", getAllProducts);
 router.delete("/:id", deleteProduct);
 
 module.exports = router;
+
+//Update filenames for s3 to have the correct extension (try slice it off the end of the original picuture name property on the req in the callback )
+// Stress test db and try different schemas (eventually)
