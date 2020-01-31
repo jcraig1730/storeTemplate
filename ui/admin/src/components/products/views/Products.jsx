@@ -68,20 +68,16 @@ const Products = () => {
       />
       <div className="container-fluid pt-3">
         <div className="row">
-          <div className="col" style={{ top: "-15px" }}>
+          <div className="col-12 col-md-8">
             {isLoading ? (
               <LoadingSpinner />
             ) : (
-              <ProductList updateProducts={updateProducts} />
+              <div className="p-0">
+                <ProductList updateProducts={updateProducts} />
+              </div>
             )}
           </div>
-          <div className="col"></div>
-          <div
-            style={
-              alert.status ? { left: "50%", top: "50px" } : { left: "50%" }
-            }
-            className="w-50 fixed-top"
-          >
+          <div className="d-none d-md-block col-md-4">
             {isLoading ? (
               <LoadingSpinner />
             ) : (

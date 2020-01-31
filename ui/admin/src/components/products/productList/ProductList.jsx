@@ -7,7 +7,10 @@ import ListItem from "./ListItem";
 const ProductList = ({ updateProducts }) => {
   const [{ products }, dispatch] = useStateValue();
   return (
-    <ul className="list-group mt-3">
+    <ul className="list-group p-0">
+      <div className="list-group-item">
+        <h3 className="lead-text">Inventory</h3>
+      </div>
       {products.map(product => (
         <ListItem
           product={product}

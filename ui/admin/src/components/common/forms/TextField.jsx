@@ -6,7 +6,9 @@ const TextField = ({ options }) => {
 
   return (
     <div className="form-group">
-      <label htmlFor={id}>{label}</label>
+      <label className="mb-0" htmlFor={id}>
+        {label}
+      </label>
       <input
         type={type}
         className="form-control"

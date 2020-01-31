@@ -14,6 +14,7 @@ const upload = multer({
   storage: multerS3({
     s3: s3,
     bucket: BUCKET,
+    acl: "public-read",
     key: (req, file, callback) => {
       const extension = file.mimetype.split("/")[1];
       const uuid = uuidv4();
