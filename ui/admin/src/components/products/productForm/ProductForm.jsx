@@ -143,7 +143,7 @@ const ProductForm = ({ updateProducts, productData, id }) => {
 
   return (
     <form
-      className="border p-3 mr-3 mt-3 rounded"
+      className="border p-3 rounded"
       onSubmit={handleSubmit}
       enctype="multipart/form-data"
     >
