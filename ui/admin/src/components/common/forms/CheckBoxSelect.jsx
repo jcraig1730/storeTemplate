@@ -16,7 +16,7 @@ const CheckBoxSelect = ({ selectOptions, currentlySelected, onCheck }) => {
 
   return (
     <div
-      className="form-group "
+      className="form-group border border-rounded"
       style={{ maxHeight: "20vh", overflowY: "scroll" }}
     >
       {selectOptions.map(option => {

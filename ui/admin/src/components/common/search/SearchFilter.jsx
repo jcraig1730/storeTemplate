@@ -11,16 +11,17 @@ const SearchFilter = ({ label, callback }) => {
   useEffect(() => callback(searchValue), [searchValue]);
 
   return (
-    <div class="form-group">
-      <label for="search" placeholder="Search">
+    <div className="form-group">
+      <label className="mb-0" for="search">
         {label}
       </label>
       <input
         type="text"
-        class="form-control"
+        className="form-control"
         id="search"
         onChange={handleChange}
         value={searchValue}
+        placeholder={`Search ${label}`}
       />
     </div>
   );

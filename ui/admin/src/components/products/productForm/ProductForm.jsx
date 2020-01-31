@@ -173,32 +173,40 @@ const ProductForm = ({ updateProducts, productData, id }) => {
           alert
         }}
       />
-      <TextField
-        options={{
-          type: "text",
-          id: "quantity",
-          onChange: handleChange,
-          value: quantity,
-          label: "Quantity",
-          alert
-        }}
-      />
-      <TextField
-        options={{
-          type: "text",
-          id: "cost",
-          onChange: handleChange,
-          value: cost,
-          label: "Cost",
-          alert
-        }}
-      />
-      <SearchFilter callback={handleVendorSearch} label="Vendors" />
-      <CheckBoxSelect
-        selectOptions={filteredVendors || vendors}
-        currentlySelected={vendorList}
-        onCheck={handleVendorSelect}
-      />
+      <div className="row">
+        <div className="col-6">
+          <TextField
+            options={{
+              type: "text",
+              id: "quantity",
+              onChange: handleChange,
+              value: quantity,
+              label: "Quantity",
+              alert
+            }}
+          />
+        </div>
+        <div className="col-6">
+          <TextField
+            options={{
+              type: "text",
+              id: "cost",
+              onChange: handleChange,
+              value: cost,
+              label: "Cost",
+              alert
+            }}
+          />
+        </div>
+      </div>
+      <div className="border border-rounded p-2 pb-0">
+        <SearchFilter callback={handleVendorSearch} label="Vendors" />
+        <CheckBoxSelect
+          selectOptions={filteredVendors || vendors}
+          currentlySelected={vendorList}
+          onCheck={handleVendorSelect}
+        />
+      </div>
       <div class="form-group">
         <label for="exampleFormControlFile1">Example file input</label>
         <input
