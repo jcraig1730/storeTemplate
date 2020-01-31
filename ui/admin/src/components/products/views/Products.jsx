@@ -68,7 +68,7 @@ const Products = () => {
       />
       <div className="container-fluid pt-3">
         <div className="row">
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-8">
             {isLoading ? (
               <LoadingSpinner />
             ) : (
@@ -77,7 +77,7 @@ const Products = () => {
               </div>
             )}
           </div>
-          <div className="d-none d-md-block col-md-6">
+          <div className="d-none d-md-block col-md-4">
             {isLoading ? (
               <LoadingSpinner />
             ) : (
