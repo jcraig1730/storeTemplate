@@ -2,15 +2,15 @@ import Axios from "axios";
 
 const apiUrl = "http://localhost:8000/api";
 
-export const createItem = async ({ category, data }) => {
+export const createItem = async ({ route, data }) => {
   try {
     const { images, productData } = data;
-    const dataResult = await Axios.post(`${apiUrl}/${category}`, productData);
+    const dataResult = await Axios.post(`${apiUrl}/${route}`, productData);
     const id = dataResult.data._id;
     if (images) {
       const formData = new FormData();
       formData.append("images", images);
-      await Axios.post(`${apiUrl}/${category}/${id}/image`, formData, {
+      await Axios.post(`${apiUrl}/${route}/${id}/image`, formData, {
         "content-type": "multipart/form-data"
       });
     }
@@ -20,41 +20,45 @@ export const createItem = async ({ category, data }) => {
   }
 };
 
-export const getItemById = async ({ category, data }) => {
+export const getItemById = async ({ route, data }) => {
   const { id } = data;
   try {
-    const result = await Axios.get(`${apiUrl}/${category}/${id}`);
+    const result = await Axios.get(`${apiUrl}/${route}/${id}`);
     return result;
   } catch (err) {
     return err;
   }
 };
 
-export const getItemByLookup = async ({ category, data }) => {
+export const getItemByLookup = async ({ route, data }) => {
   try {
-    const result = await Axios.get(`${apiUrl}/${category}/data`);
+    const result = await Axios.get(`${apiUrl}/${route}/data`);
   } catch (err) {
     return err;
   }
 };
 
-export const getAllItems = async ({ category }) => {
+export const getAllItems = async ({ route, limit, offset }) => {
   try {
-    const result = await Axios.get(`${apiUrl}/${category}`);
+    let queryString = `${apiUrl}/${route}`;
+    if (limit) {
+      queryString += `/?limit=${limit}&offset=${offset}`;
+    }
+    const result = await Axios.get(queryString);
     return result;
   } catch (err) {
     return err;
   }
 };
 
-export const updateItem = async ({ category, data }, id) => {
+export const updateItem = async ({ route, data }, id) => {
   try {
     const { images, productData } = data;
-    const result = await Axios.put(`${apiUrl}/${category}/${id}`, productData);
+    const result = await Axios.put(`${apiUrl}/${route}/${id}`, productData);
     if (images) {
       const formData = new FormData();
       formData.append("images", images);
-      await Axios.put(`${apiUrl}/${category}/${id}/image`, formData, {
+      await Axios.put(`${apiUrl}/${route}/${id}/image`, formData, {
         "content-type": "multipart/form-data"
       });
     }
@@ -65,10 +69,10 @@ export const updateItem = async ({ category, data }, id) => {
   }
 };
 
-export const deleteItem = async ({ category, data }) => {
+export const deleteItem = async ({ route, data }) => {
   const { id } = data;
   try {
-    const result = await Axios.delete(`${apiUrl}/${category}/${id}`);
+    const result = await Axios.delete(`${apiUrl}/${route}/${id}`);
     return result;
   } catch (err) {
     return err;

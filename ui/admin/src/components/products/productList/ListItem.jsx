@@ -27,7 +27,7 @@ const ListItem = ({ product, updateProducts }) => {
   const deleteProduct = async e => {
     try {
       const result = await deleteItem({
-        category: "products",
+        route: "products",
         data: { id: product._id }
       });
       if (result.status !== 204) {

@@ -23,7 +23,6 @@ const ImageCluster = ({ images, mainImgIdx }) => {
     </div>
   );
 
-  console.log(cluster);
   return cluster;
 };
 
