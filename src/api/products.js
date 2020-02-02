@@ -61,8 +61,29 @@ const updateProduct = async (req, res) => {
 
 const getAllProducts = async (req, res) => {
   try {
-    const results = await Product.find();
-    res.status(200).json(results);
+    let limit;
+    if (!req.query.limit) {
+      limit = 10;
+    } else {
+      limit = Number(req.query.limit);
+    }
+    let offset;
+    if (!req.query.offset) {
+      offset = 0;
+    } else {
+      offset = Number(req.query.offset);
+    }
+
+    const numRecords = await Product.countDocuments();
+    const skipCount = limit * offset;
+    const data = await Product.find()
+      .skip(skipCount)
+      .limit(limit);
+
+    const numPages = numRecords / limit;
+    const result = { data, numPages, offset, limit };
+
+    res.status(200).json(result);
   } catch (err) {
     res.status(400).json({ err });
   }
@@ -134,11 +155,8 @@ router.delete("/:id/image/:key", deleteImage);
 router.put("/:id", updateProduct);
 router.post("/", upload.single("images"), createProduct);
 router.get("/:id", getProductById);
-router.get(/\/?/, getProduct);
 router.get("/", getAllProducts);
+router.get(/\/?/, getProduct);
 router.delete("/:id", deleteProduct);
 
 module.exports = router;
-
-//Update filenames for s3 to have the correct extension (try slice it off the end of the original picuture name property on the req in the callback )
-// Stress test db and try different schemas (eventually)
