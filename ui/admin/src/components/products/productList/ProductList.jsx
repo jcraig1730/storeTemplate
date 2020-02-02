@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ReactPaginate from "react-paginate";
 import { useStateValue } from "../../../state/State";
 
 import ListItem from "./ListItem";
