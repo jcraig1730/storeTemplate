@@ -90,7 +90,7 @@ const ProductForm = ({ updateProducts, productData, id }) => {
     };
 
     const apiCallData = {
-      category: "products",
+      route: "products",
       data: { productData, images: images[0] }
     };
 
