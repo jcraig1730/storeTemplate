@@ -80,7 +80,7 @@ const getAllProducts = async (req, res) => {
       .skip(skipCount)
       .limit(limit);
 
-    const numPages = numRecords / limit;
+    const numPages = Math.ceil(numRecords / limit);
     const result = { data, numPages, offset, limit };
 
     res.status(200).json(result);
